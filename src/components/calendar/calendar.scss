@@ -12,14 +12,20 @@
     height: 2rem;
     align-items: center;
     cursor: pointer;
-}
-&__card {
+  }
+  &__card {
     box-shadow: 0 0 2px 4px gray;
     border-radius: 0.3rem;
     width: auto;
-    height: 5rem;
+    height: auto;
     background-color: #d6d6d6;
     display: flex;
-    
+    flex-direction: column;
+    text-align: center;
+  }
+  &__item {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    cursor: pointer;
   }
 }
