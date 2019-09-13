@@ -52,17 +52,17 @@ export class Calendar {
     this.showCard = false;
     this.month(e);
   }
-  selectMonth(e: any, element: string, key: string) {
+  selectMonth(e: any, element: string, key: number) {
     console.log("e", e);
     console.log("element", element);
-    console.log("key", key);
+    console.log("key", key+1);
     this.valueInputMonth = element;
-    this.valueInputIntMonth = key;
+    this.valueInputIntMonth = key <= 9 ? "0".concat(key.toString()): (key).toString();
     this.disableDay = false;
     this.showCard = false;
     selectDate = this.valueInputYear
       .concat("-")
-      .concat(this.valueInputIntMonth + 1);
+      .concat(this.valueInputIntMonth);
     daysName = moment.localeData().weekdaysShort();
     console.log("name days--> " + daysName);
 
@@ -72,9 +72,7 @@ export class Calendar {
 
     //start day of month
     console.log("select object-->" + selectDate);
-    console.log(
-      "day---->" +
-        moment(selectDate)
+    console.log("day---->" + moment("2019-09")
           .startOf("month")
           .format("ddd")
     );
@@ -98,11 +96,13 @@ export class Calendar {
       arrayDays.unshift("");
     }
     console.log("days organized to matrix-->" + arrayDays);
+    this.day(e);
   }
   selectDay(e: any, element: string) {
     console.log("e", e);
     console.log("element", element);
     this.valueInputDay = element;
+    this.showCard = false;
   }
 
   getCalendar() {
@@ -180,7 +180,7 @@ export class Calendar {
                   : this.yearSelected &&
                     arrayListMonth.map((element, key) => {
                       return (
-                        <div onClick={e => this.selectMonth(e, element, key)}>
+                        <div onClick={e => this.selectMonth(e, element, key+1)}>
                           {element}
                         </div>
                       );
@@ -188,16 +188,11 @@ export class Calendar {
               </div>
             ) : (
               <div class='calendar__item calendar__item-day'>
-                {
-                  this.showCard && !this.disableDay && 
+                {this.showCard &&
+                  !this.disableDay &&
                   arrayNameDays.map(element => {
-                    return(
-                      <div>
-                        {element}
-                      </div>
-                    )
-                  })
-                }
+                    return <div>{element}</div>;
+                  })}
                 {this.showCard &&
                   !this.disableDay &&
                   arrayListDays.map(element => {
