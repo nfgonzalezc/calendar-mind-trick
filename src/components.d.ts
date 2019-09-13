@@ -9,6 +9,11 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface AdlCalendar {
+    'first': string;
+    'last': string;
+    'middle': string;
+  }
   interface MyComponent {
     /**
     * The first name
@@ -28,17 +33,29 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLAdlCalendarElement extends Components.AdlCalendar, HTMLStencilElement {}
+  var HTMLAdlCalendarElement: {
+    prototype: HTMLAdlCalendarElement;
+    new (): HTMLAdlCalendarElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
     new (): HTMLMyComponentElement;
   };
   interface HTMLElementTagNameMap {
+    'adl-calendar': HTMLAdlCalendarElement;
     'my-component': HTMLMyComponentElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface AdlCalendar extends JSXBase.HTMLAttributes<HTMLAdlCalendarElement> {
+    'first'?: string;
+    'last'?: string;
+    'middle'?: string;
+  }
   interface MyComponent extends JSXBase.HTMLAttributes<HTMLMyComponentElement> {
     /**
     * The first name
@@ -55,6 +72,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'adl-calendar': AdlCalendar;
     'my-component': MyComponent;
   }
 }
