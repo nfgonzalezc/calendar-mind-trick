@@ -33,14 +33,33 @@ export class Calendar {
 
   getCalendar() {
     let momentExtend = extendMoment.extendMoment(moment);
-    const start = new Date(1950, 1, 1);
-    const end = new Date(2060, 1, 1);
-    const range = momentExtend.range(start, end);
-    const years = Array.from(range.by("year"));
-    yearList = years.map(m => m.format("YYYY"));
+    let start  = new Date(1950, 1, 1);
+    let end    = new Date(2060, 1, 1);
+    let range = momentExtend.range(start,end);
+    let years = Array.from(range.by('year'));
+    let yearList = years.map(m => m.format('YYYY'));
     console.log(yearList);
-    monthList = moment.months();
-    console.log(monthList);
+    let monthlist = moment.months();
+    console.log(monthlist);
+
+    const localeData = moment.localeData()
+    console.log(localeData.weekdaysShort());
+    console.log( moment().get('date'));
+
+    const arrayLength = moment("2019-09", "YYYY-MM").daysInMonth();
+    console.log("arraylength-->" +  arrayLength);
+  
+    const arrayDays = new Array(arrayLength);
+    let count = 1; 
+		for (var i = 0; i < arrayLength; i++){
+          arrayDays[i] = count;
+          count++;
+    };
+   
+    console.log("ArrayDays-->" + arrayDays); // 31
+    //dia de inicio del mes
+    console.log(moment().startOf('month').format('dd')); 
+
   }
 
   render() {
