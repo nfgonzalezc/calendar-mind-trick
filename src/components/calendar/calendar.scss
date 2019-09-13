@@ -8,7 +8,7 @@
     box-shadow: 0 0 2px 4px gray;
     background-color: white;
     width: auto;
-    justify-content: space-around;
+    justify-content: space-evenly;
     height: 2rem;
     align-items: center;
     cursor: pointer;
@@ -27,8 +27,28 @@
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     cursor: pointer;
-    &-day{
-        grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+    &-day {
+      grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
     }
   }
+}
+
+@mixin normalizeInput() {
+  // normalize
+  outline: none;
+  overflow: visible;
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+:host input {
+    @include normalizeInput();
+    width: 1rem;
+    border: 0;
+    &:disabled {
+        background-color: white;
+        cursor: not-allowed;
+    }
 }
