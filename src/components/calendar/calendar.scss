@@ -27,5 +27,8 @@
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     cursor: pointer;
+    &-day{
+        grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+    }
   }
 }
