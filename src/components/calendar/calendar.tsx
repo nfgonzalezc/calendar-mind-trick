@@ -13,7 +13,7 @@ export class Calendar {
   @Prop() last: string;
   @Prop({ reflect: true }) titleCard: string;
   @Prop({ reflect: true }) startyear: number = 1969;
-  @Prop({ reflect:true }) endyear: number = 2060;
+  @Prop({ reflect: true }) endyear: number = 2060;
   @State() showCard: boolean = false;
   @State() disableYear = false;
   @State() disableMonth = true;
@@ -52,50 +52,40 @@ export class Calendar {
     this.showCard = false;
     this.month(e);
   }
-  selectMonth (e: any, element:string, key:string){
+  selectMonth(e: any, element: string, key: string) {
     console.log("e", e);
     console.log("element", element);
-    console.log("key", key)
+    console.log("key", key);
     this.valueInputMonth = element;
     this.valueInputIntMonth = key;
     this.disableDay = false;
     this.showCard = false;
-    selectDate = this.valueInputYear.concat("-").concat(this.valueInputIntMonth);
-    this.day(e);
-  }
-  selectDay(e: any, element: string) {
-    console.log("e", e);
-    console.log("element", element);
-    this.valueInputDay = element;
-  }
-  hostData(){
-  }
-
-  getCalendar() {
-    let momentExtend = extendMoment.extendMoment(moment);
-    let start  = new Date(this.startyear, 1, 1);
-    let end    = new Date(this.endyear, 1, 1);
-    let range = momentExtend.range(start,end);
-    let years = Array.from(range.by('year'));
-    yearList = years.map(m => m.format('YYYY'));
-    console.log("yearList-->" + yearList);
-    monthList = moment.months();
-    console.log("monthlist-->" + monthList);
-
-    const daysName = moment.localeData().weekdaysShort();
+    selectDate = this.valueInputYear
+      .concat("-")
+      .concat(this.valueInputIntMonth + 1);
+    daysName = moment.localeData().weekdaysShort();
     console.log("name days--> " + daysName);
 
     //days of month selected
-    const arrayLength = moment("2019-10", "YYYY-MM").daysInMonth();
+    const arrayLength = moment(selectDate, "YYYY-MM").daysInMonth();
     console.log("arraylength-->" + arrayLength);
 
     //start day of month
-    console.log("select object-->"+ selectDate);
-    const firstDay = daysName.indexOf(moment(selectDate).startOf('month').format('ddd'));
-    
+    console.log("select object-->" + selectDate);
+    console.log(
+      "day---->" +
+        moment(selectDate)
+          .startOf("month")
+          .format("ddd")
+    );
+    const firstDay = daysName.indexOf(
+      moment(selectDate)
+        .startOf("month")
+        .format("ddd")
+    );
     console.log("int day-->" + firstDay);
     //Array days
-    const arrayDays = new Array(arrayLength);
+    arrayDays = new Array(arrayLength);
     let count = 1;
     for (var i = 0; i < arrayLength; i++) {
       arrayDays[i] = count;
@@ -104,18 +94,36 @@ export class Calendar {
 
     console.log("amout days of month-->" + arrayDays); // 31
     //Matrix of day
-    daysList = arrayDays.fill("", 0, firstDay);
+    for (var j = 0; j < firstDay; j++) {
+      arrayDays.unshift("");
+    }
+    console.log("days organized to matrix-->" + arrayDays);
+  }
+  selectDay(e: any, element: string) {
+    console.log("e", e);
+    console.log("element", element);
+    this.valueInputDay = element;
+  }
 
-    console.log("days organized to matrix-->" + daysList);
+  getCalendar() {
+    let momentExtend = extendMoment.extendMoment(moment);
+    let start = new Date(this.startyear, 1, 1);
+    let end = new Date(this.endyear, 1, 1);
+    let range = momentExtend.range(start, end);
+    let years = Array.from(range.by("year"));
+    yearList = years.map(m => m.format("YYYY"));
+    console.log("yearList-->" + yearList);
+    monthList = moment.months();
+    console.log("monthlist-->" + monthList);
   }
 
   render() {
     this.getCalendar();
     const arrayListYear = yearList;
     const arrayListMonth = monthList;
-    const arrayListDays = daysList;
+    const arrayListDays = arrayDays;
+    const arrayNameDays = daysName;
     return (
-    
       <div class='calendar'>
         <div class='calendar__input'>
           <input
@@ -180,6 +188,16 @@ export class Calendar {
               </div>
             ) : (
               <div class='calendar__item calendar__item-day'>
+                {
+                  this.showCard && !this.disableDay && 
+                  arrayNameDays.map(element => {
+                    return(
+                      <div>
+                        {element}
+                      </div>
+                    )
+                  })
+                }
                 {this.showCard &&
                   !this.disableDay &&
                   arrayListDays.map(element => {
@@ -199,5 +217,6 @@ export class Calendar {
 }
 let yearList;
 let monthList;
-let daysList;
+let arrayDays;
 let selectDate;
+let daysName;
