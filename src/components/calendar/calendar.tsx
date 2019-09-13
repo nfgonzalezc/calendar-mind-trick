@@ -22,19 +22,24 @@ export class Calendar {
   @State() valueInputMonth: string;
   @State() valueInputDay: string;
   @State() valueInputIntMonth: string;
+  @State() yearSelected: boolean = false;
 
   year(e) {
     this.titleCard = "Selecciona el año";
-    console.log(this.titleCard);
     this.showCard = true;
+    this.yearSelected = false;
+    this.disableDay = true;
   }
   month(e) {
+    this.disableDay = true;
     this.titleCard = "Selecciona el mes";
     this.showCard = true;
+    this.yearSelected = true;
   }
   day(e) {
     this.titleCard = "Selecciona el día";
     this.showCard = true;
+    this.yearSelected = false;
     console.log(e);
   }
   selectYear(e: any, element: string) {
@@ -42,7 +47,8 @@ export class Calendar {
     console.log("element", element);
     this.valueInputYear = element;
     this.disableMonth = false;
-    this.disableYear = true;
+    this.disableYear = false;
+    this.yearSelected = true;
     this.showCard = false;
     this.month(e);
   }
@@ -52,15 +58,17 @@ export class Calendar {
     console.log("key", key)
     this.valueInputMonth = element;
     this.valueInputIntMonth = key;
-    this.disableMonth = true;
     this.disableDay = false;
     this.showCard = false;
     selectDate = this.valueInputYear.concat("-").concat(this.valueInputIntMonth);
+    this.day(e);
   }
   selectDay(e: any, element: string) {
     console.log("e", e);
     console.log("element", element);
     this.valueInputDay = element;
+  }
+  hostData(){
   }
 
   getCalendar() {
@@ -107,6 +115,7 @@ export class Calendar {
     const arrayListMonth = monthList;
     const arrayListDays = daysList;
     return (
+    
       <div class='calendar'>
         <div class='calendar__input'>
           <input
@@ -142,7 +151,7 @@ export class Calendar {
               this.day(e);
             }}
             onFocus={e => {
-              this.month(e);
+              this.day(e);
             }}
           />
         </div>
@@ -152,7 +161,7 @@ export class Calendar {
             <br />
             {this.disableDay ? (
               <div class='calendar__item'>
-                {!this.disableYear
+                {!this.yearSelected
                   ? arrayListYear.map(element => {
                       return (
                         <div onClick={e => this.selectYear(e, element)}>
@@ -160,7 +169,7 @@ export class Calendar {
                         </div>
                       );
                     })
-                  : !this.disableMonth &&
+                  : this.yearSelected &&
                     arrayListMonth.map((element, key) => {
                       return (
                         <div onClick={e => this.selectMonth(e, element, key)}>
