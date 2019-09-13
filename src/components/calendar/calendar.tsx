@@ -55,7 +55,34 @@ export class Calendar {
     this.disableMonth = true;
     this.disableDay = false;
     this.showCard = false;
-    selectDate = this.valueInputYear.concat("-").concat(this.valueInputIntMonth);
+    selectDate = this.valueInputYear.concat("-").concat(this.valueInputIntMonth+1);
+    const daysName = moment.localeData().weekdaysShort();
+    console.log("name days--> " + daysName);
+
+    //days of month selected
+    const arrayLength = moment(selectDate, "YYYY-MM").daysInMonth();
+    console.log("arraylength-->" + arrayLength);
+
+    //start day of month
+    console.log("select object-->"+ selectDate);
+    console.log("day---->" + moment(selectDate).startOf('month').format('ddd'));
+    const firstDay = daysName.indexOf(moment(selectDate).startOf('month').format('ddd'));
+    console.log("int day-->" + firstDay);
+    //Array days
+    const arrayDays = new Array(arrayLength);
+    let count = 1;
+    for (var i = 0; i < arrayLength; i++) {
+      arrayDays[i] = count;
+      count++;
+    }
+
+    console.log("amout days of month-->" + arrayDays); // 31
+    //Matrix of day
+    for(var j = 0; j < firstDay; j++){
+      arrayDays.unshift("");
+    }
+    console.log("days organized to matrix-->" + arrayDays);
+  
   }
   selectDay(e: any, element: string) {
     console.log("e", e);
@@ -74,31 +101,6 @@ export class Calendar {
     monthList = moment.months();
     console.log("monthlist-->" + monthList);
 
-    const daysName = moment.localeData().weekdaysShort();
-    console.log("name days--> " + daysName);
-
-    //days of month selected
-    const arrayLength = moment("2019-10", "YYYY-MM").daysInMonth();
-    console.log("arraylength-->" + arrayLength);
-
-    //start day of month
-    console.log("select object-->"+ selectDate);
-    const firstDay = daysName.indexOf(moment(selectDate).startOf('month').format('ddd'));
-    
-    console.log("int day-->" + firstDay);
-    //Array days
-    const arrayDays = new Array(arrayLength);
-    let count = 1;
-    for (var i = 0; i < arrayLength; i++) {
-      arrayDays[i] = count;
-      count++;
-    }
-
-    console.log("amout days of month-->" + arrayDays); // 31
-    //Matrix of day
-    daysList = arrayDays.fill("", 0, firstDay);
-
-    console.log("days organized to matrix-->" + daysList);
   }
 
   render() {
