@@ -98,11 +98,13 @@ export class Calendar {
       arrayDays.unshift("");
     }
     console.log("days organized to matrix-->" + arrayDays);
+    this.day(e);
   }
   selectDay(e: any, element: string) {
     console.log("e", e);
     console.log("element", element);
     this.valueInputDay = element;
+    this.showCard = false;
   }
 
   getCalendar() {
@@ -188,16 +190,11 @@ export class Calendar {
               </div>
             ) : (
               <div class='calendar__item calendar__item-day'>
-                {
-                  this.showCard && !this.disableDay && 
+                {this.showCard &&
+                  !this.disableDay &&
                   arrayNameDays.map(element => {
-                    return(
-                      <div>
-                        {element}
-                      </div>
-                    )
-                  })
-                }
+                    return <div>{element}</div>;
+                  })}
                 {this.showCard &&
                   !this.disableDay &&
                   arrayListDays.map(element => {

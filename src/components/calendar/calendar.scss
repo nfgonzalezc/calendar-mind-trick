@@ -1,6 +1,7 @@
 .calendar {
   display: flex;
   flex-direction: column;
+  min-width: 300px;
   &__input {
     display: flex;
     flex-direction: row;
@@ -45,8 +46,9 @@
 
 :host input {
     @include normalizeInput();
-    width: 1rem;
+    width: 3rem;
     border: 0;
+    cursor: pointer;
     &:disabled {
         background-color: white;
         cursor: not-allowed;
