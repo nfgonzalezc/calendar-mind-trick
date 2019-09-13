@@ -13,6 +13,7 @@ export namespace Components {
     'first': string;
     'last': string;
     'middle': string;
+    'titleCard': string;
   }
   interface MyComponent {
     /**
@@ -55,6 +56,7 @@ declare namespace LocalJSX {
     'first'?: string;
     'last'?: string;
     'middle'?: string;
+    'titleCard'?: string;
   }
   interface MyComponent extends JSXBase.HTMLAttributes<HTMLMyComponentElement> {
     /**
