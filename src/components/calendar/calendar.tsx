@@ -12,6 +12,8 @@ export class Calendar {
   @Prop() middle: string;
   @Prop() last: string;
   @Prop({ reflect: true }) titleCard: string;
+  @Prop({ reflect: true }) startyear: number = 1969;
+  @Prop({ reflect:true }) endyear: number = 2060;
   @State() showCard: boolean = false;
   @State() disableYear = false;
   @State() disableMonth = true;
@@ -19,6 +21,8 @@ export class Calendar {
   @State() valueInputYear: string;
   @State() valueInputMonth: string;
   @State() valueInputDay: string;
+  @State() valueInputIntMonth: string;
+
   year(e) {
     this.titleCard = "Selecciona el año";
     console.log(this.titleCard);
@@ -42,13 +46,16 @@ export class Calendar {
     this.showCard = false;
     this.month(e);
   }
-  selectMonth(e: any, element: string) {
+  selectMonth (e: any, element:string, key:string){
     console.log("e", e);
     console.log("element", element);
+    console.log("key", key)
     this.valueInputMonth = element;
+    this.valueInputIntMonth = key;
     this.disableMonth = true;
     this.disableDay = false;
     this.showCard = false;
+    selectDate = this.valueInputYear.concat("-").concat(this.valueInputIntMonth);
   }
   selectDay(e: any, element: string) {
     console.log("e", e);
@@ -58,11 +65,11 @@ export class Calendar {
 
   getCalendar() {
     let momentExtend = extendMoment.extendMoment(moment);
-    let start = new Date(1950, 1, 1);
-    let end = new Date(2060, 1, 1);
-    let range = momentExtend.range(start, end);
-    let years = Array.from(range.by("year"));
-    yearList = years.map(m => m.format("YYYY"));
+    let start  = new Date(this.startyear, 1, 1);
+    let end    = new Date(this.endyear, 1, 1);
+    let range = momentExtend.range(start,end);
+    let years = Array.from(range.by('year'));
+    yearList = years.map(m => m.format('YYYY'));
     console.log("yearList-->" + yearList);
     monthList = moment.months();
     console.log("monthlist-->" + monthList);
@@ -75,12 +82,9 @@ export class Calendar {
     console.log("arraylength-->" + arrayLength);
 
     //start day of month
-    const firstDay = daysName.indexOf(
-      moment("2019-10")
-        .startOf("month")
-        .format("ddd")
-    );
-
+    console.log("select object-->"+ selectDate);
+    const firstDay = daysName.indexOf(moment(selectDate).startOf('month').format('ddd'));
+    
     console.log("int day-->" + firstDay);
     //Array days
     const arrayDays = new Array(arrayLength);
@@ -157,9 +161,9 @@ export class Calendar {
                       );
                     })
                   : !this.disableMonth &&
-                    arrayListMonth.map(element => {
+                    arrayListMonth.map((element, key) => {
                       return (
-                        <div onClick={e => this.selectMonth(e, element)}>
+                        <div onClick={e => this.selectMonth(e, element, key)}>
                           {element}
                         </div>
                       );
@@ -187,3 +191,4 @@ export class Calendar {
 let yearList;
 let monthList;
 let daysList;
+let selectDate;
