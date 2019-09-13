@@ -1,12 +1,11 @@
 import { Component, Prop, h } from "@stencil/core";
-import { format } from "../../utils/utils";
 
 @Component({
-  tag: "my-component",
-  styleUrl: "my-component.css",
+  tag: "adl-calendar",
+  styleUrl: "calendar.scss",
   shadow: true
 })
-export class MyComponent {
+export class Calendar {
   @Prop() first: string;
   @Prop() middle: string;
   @Prop() last: string;
