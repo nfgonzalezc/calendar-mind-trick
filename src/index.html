@@ -19,6 +19,16 @@
   <div class="calendar">
     <adl-calendar first="Stencil" startyear="1969"></adl-calendar>
   </div>
+  <script>
+      const todoListElement = document.querySelector('adl-calendar');
+      todoListElement.addEventListener('date', event => { 
+        const div = document.createElement("h1");
+        div.innerHTML = event.detail;
+        document.body.appendChild(div);
+        console.log("event.target.value----->",event.detail);
+        
+      })
+    </script>
 
 </body>
 
