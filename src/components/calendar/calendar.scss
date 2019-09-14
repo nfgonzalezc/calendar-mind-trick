@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: row;
     border-radius: 0.3rem;
-    box-shadow: 0 0 2px 4px gray;
+    box-shadow: 0 0 2px 4px #0074d3;
     background-color: var(--tint);
     width: auto;
     justify-content: space-evenly;
@@ -15,11 +15,11 @@
     cursor: pointer;
   }
   &__card {
-    box-shadow: 0 0 2px 4px gray;
+    box-shadow: 0 0 2px 4px #0074d3;
     border-radius: 0.3rem;
     width: auto;
     height: auto;
-    background-color: #d6d6d6;
+    background-color: white;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -45,12 +45,12 @@
 }
 
 :host input {
-    @include normalizeInput();
-    width: 3rem;
-    border: 0;
-    cursor: pointer;
-    &:disabled {
-        background-color: white;
-        cursor: not-allowed;
-    }
+  @include normalizeInput();
+  width: 3rem;
+  border: 0;
+  cursor: pointer;
+  &:disabled {
+    background-color: white;
+    cursor: not-allowed;
+  }
 }
