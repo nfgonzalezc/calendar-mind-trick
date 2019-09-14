@@ -57,9 +57,9 @@ export class Calendar {
   selectMonth(e: any, element: string, key: number) {
     console.log("e", e);
     console.log("element", element);
-    console.log("key", key+1);
+    console.log("key", key + 1);
     this.valueInputMonth = element;
-    this.valueInputIntMonth = key <= 9 ? "0".concat(key.toString()): (key).toString();
+    this.valueInputIntMonth = key <= 9 ? "0".concat(key.toString()) : (key).toString();
     this.disableDay = false;
     this.showCard = false;
     selectDate = this.valueInputYear
@@ -75,8 +75,8 @@ export class Calendar {
     //start day of month
     console.log("select object-->" + selectDate);
     console.log("day---->" + moment("2019-09")
-          .startOf("month")
-          .format("ddd")
+      .startOf("month")
+      .format("ddd")
     );
     const firstDay = daysName.indexOf(
       moment(selectDate)
@@ -126,6 +126,21 @@ export class Calendar {
     }
   }
 
+  isNumberValid(ev: any) {
+    let valueInput = ev.target.value;
+    const regex = valueInput.replace(/[\D]+/gm, "");
+    this.valueInputYear = regex;
+    ev.target.value = regex;
+    
+  }
+
+  isAlphaValid(ev: any){
+    let valueInput = ev.target.value;
+    const regex = valueInput.replace(/[\d\W]+/gm, "");
+    this.valueInputMonth = regex;
+    ev.target.value = regex;
+  }
+
   render() {
     this.getCalendar();
     const arrayListYear = yearList;
@@ -135,7 +150,10 @@ export class Calendar {
     return (
       <div class='calendar'>
         <div class='calendar__input'>
-          <input
+          <input maxlength="4"
+            onInput={e =>
+              this.isNumberValid(e)
+            }
             onClick={e => {
               this.year(e);
             }}
@@ -149,6 +167,10 @@ export class Calendar {
           />
           /
           <input
+            maxlength="10"
+            onInput={e =>
+              this.isAlphaValid(e)
+            }
             onClick={e => {
               this.month(e);
             }}
@@ -161,6 +183,10 @@ export class Calendar {
           />
           /
           <input
+            maxlength="2"
+            onInput={e =>
+              this.isNumberValid(e)
+            }
             placeholder='Day'
             disabled={this.disableDay}
             value={this.valueInputDay}
@@ -180,39 +206,39 @@ export class Calendar {
               <div class='calendar__item'>
                 {!this.yearSelected
                   ? arrayListYear.map(element => {
-                      return (
-                        <div onClick={e => this.selectYear(e, element)}>
-                          {element}
-                        </div>
-                      );
-                    })
-                  : this.yearSelected &&
-                    arrayListMonth.map((element, key) => {
-                      return (
-                        <div onClick={e => this.selectMonth(e, element, key+1)}>
-                          {element}
-                        </div>
-                      );
-                    })}
-              </div>
-            ) : (
-              <div class='calendar__item calendar__item-day'>
-                {this.showCard &&
-                  !this.disableDay &&
-                  arrayNameDays.map(element => {
-                    return <div>{element}</div>;
-                  })}
-                {this.showCard &&
-                  !this.disableDay &&
-                  arrayListDays.map(element => {
                     return (
-                      <div onClick={e => this.selectDay(e, element)}>
+                      <div onClick={e => this.selectYear(e, element)}>
+                        {element}
+                      </div>
+                    );
+                  })
+                  : this.yearSelected &&
+                  arrayListMonth.map((element, key) => {
+                    return (
+                      <div onClick={e => this.selectMonth(e, element, key + 1)}>
                         {element}
                       </div>
                     );
                   })}
               </div>
-            )}
+            ) : (
+                <div class='calendar__item calendar__item-day'>
+                  {this.showCard &&
+                    !this.disableDay &&
+                    arrayNameDays.map(element => {
+                      return <div>{element}</div>;
+                    })}
+                  {this.showCard &&
+                    !this.disableDay &&
+                    arrayListDays.map(element => {
+                      return (
+                        <div onClick={e => this.selectDay(e, element)}>
+                          {element}
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
           </div>
         )}
       </div>
