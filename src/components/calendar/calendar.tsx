@@ -8,6 +8,7 @@ import extendMoment from "moment-range";
   shadow: true
 })
 export class Calendar {
+  @Prop() colorInput: string ="red";
   @Prop() first: string;
   @Prop() middle: string;
   @Prop() last: string;
@@ -25,6 +26,7 @@ export class Calendar {
   @State() yearSelected: boolean = false;
 
   year(e) {
+    console.log(e);
     this.titleCard = "Selecciona el año";
     this.showCard = true;
     this.yearSelected = false;
@@ -115,6 +117,13 @@ export class Calendar {
     console.log("yearList-->" + yearList);
     monthList = moment.months();
     console.log("monthlist-->" + monthList);
+  }
+  hostData(){
+    return {
+      class: {
+        '--colorInput': this.colorInput
+      }
+    }
   }
 
   render() {

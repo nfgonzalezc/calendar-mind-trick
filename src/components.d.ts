@@ -10,6 +10,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface AdlCalendar {
+    'colorInput': string;
     'endyear': number;
     'first': string;
     'last': string;
@@ -55,6 +56,7 @@ declare global {
 
 declare namespace LocalJSX {
   interface AdlCalendar extends JSXBase.HTMLAttributes<HTMLAdlCalendarElement> {
+    'colorInput'?: string;
     'endyear'?: number;
     'first'?: string;
     'last'?: string;
