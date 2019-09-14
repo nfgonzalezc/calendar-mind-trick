@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
@@ -7,11 +8,18 @@
 
   <script type="module" src="/build/calendar-mind-trick.esm.js"></script>
   <script nomodule src="/build/calendar-mind-trick.js"></script>
-
+  <style>
+    .calendar {
+      width: 40%;
+    }
+  </style>
 </head>
-<body>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+<body>
+  <div class="calendar">
+    <adl-calendar first="Stencil" startyear="1969"></adl-calendar>
+  </div>
 
 </body>
+
 </html>

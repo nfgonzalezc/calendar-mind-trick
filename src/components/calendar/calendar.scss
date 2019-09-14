@@ -1,0 +1,56 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  &__input {
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 2px 4px gray;
+    background-color: var(--tint);
+    width: auto;
+    justify-content: space-evenly;
+    height: 2rem;
+    align-items: center;
+    cursor: pointer;
+  }
+  &__card {
+    box-shadow: 0 0 2px 4px gray;
+    border-radius: 0.3rem;
+    width: auto;
+    height: auto;
+    background-color: #d6d6d6;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  &__item {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    cursor: pointer;
+    &-day {
+      grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+    }
+  }
+}
+
+@mixin normalizeInput() {
+  // normalize
+  outline: none;
+  overflow: visible;
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+:host input {
+    @include normalizeInput();
+    width: 3rem;
+    border: 0;
+    cursor: pointer;
+    &:disabled {
+        background-color: white;
+        cursor: not-allowed;
+    }
+}
