@@ -15,5 +15,11 @@ export const config: Config = {
       serviceWorker: null // disable service workers
     }
   ],
-  plugins: [sass()]
+  globalStyle: "src/global/variables.scss",
+  plugins: [
+    sass({
+      injectGlobalPaths: ["src/global/variables.scss"]
+    })
+  ],
+  hashFileNames: true
 };
