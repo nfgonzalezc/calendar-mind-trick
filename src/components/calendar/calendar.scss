@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:500&display=swap");
+
 .calendar {
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
   min-width: 300px;
@@ -45,12 +48,12 @@
 }
 
 :host input {
-    @include normalizeInput();
-    width: 3rem;
-    border: 0;
-    cursor: pointer;
-    &:disabled {
-        background-color: white;
-        cursor: not-allowed;
-    }
+  @include normalizeInput();
+  width: 3rem;
+  border: 0;
+  cursor: pointer;
+  &:disabled {
+    background-color: white;
+    cursor: not-allowed;
+  }
 }
