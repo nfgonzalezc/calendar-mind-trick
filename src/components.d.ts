@@ -61,6 +61,7 @@ declare namespace LocalJSX {
     'first'?: string;
     'last'?: string;
     'middle'?: string;
+    'onDate'?: (event: CustomEvent<string>) => void;
     'startyear'?: number;
     'titleCard'?: string;
   }

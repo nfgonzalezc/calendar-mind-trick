@@ -1,4 +1,4 @@
-import { Component, Prop, h, State } from "@stencil/core";
+import { Component, Prop, h, State, Event, EventEmitter } from "@stencil/core";
 import moment from "moment";
 import extendMoment from "moment-range";
 
@@ -24,6 +24,7 @@ export class Calendar {
   @State() valueInputDay: string;
   @State() valueInputIntMonth: string;
   @State() yearSelected: boolean = false;
+  @Event() date: EventEmitter<string>;
 
   year(e) {
     console.log(e);
@@ -37,6 +38,7 @@ export class Calendar {
     this.titleCard = "Selecciona el mes";
     this.showCard = true;
     this.yearSelected = true;
+    console.log(e);
   }
   day(e) {
     this.titleCard = "Selecciona el día";
@@ -105,10 +107,11 @@ export class Calendar {
     console.log("element", element);
     this.valueInputDay = element;
     this.showCard = false;
+    this.date.emit(`${this.valueInputYear}-${this.valueInputMonth}-${this.valueInputDay}`);
   }
 
   getCalendar() {
-    let momentExtend = extendMoment.extendMoment(moment);
+    const momentExtend = extendMoment.extendMoment(moment);
     let start = new Date(this.startyear, 1, 1);
     let end = new Date(this.endyear, 1, 1);
     let range = momentExtend.range(start, end);
